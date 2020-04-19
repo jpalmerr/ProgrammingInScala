@@ -65,3 +65,36 @@ for (
   if file.isFile
   if file.getName.endsWith(".scala")
 ) println(file)
+
+// match expressions
+
+val firstArg = "salt"
+firstArg match {
+  case "salt" => println("pepper")
+  case "chips" => println("salsa")
+  case "eggs" => println("bacon")
+  case _ => println("huh?")
+}
+
+// refactoring imperative code
+
+// Returns a row as a sequence
+def makeRowSeq(row: Int) =
+  for (col <- 1 to 10) yield {
+    val prod = (row * col).toString
+    val padding = " " * (4 - prod.length)
+    padding + prod
+  }
+// Returns a row as a string
+def makeRow(row: Int) = makeRowSeq(row).mkString
+// Returns table as a string with one row per line
+def multiTable() = {
+  val tableSeq = // a sequence of row strings
+    for (row <- 1 to 10)
+      yield makeRow(row)
+  tableSeq.mkString("\n")
+}
+
+makeRowSeq(10)
+makeRow(10)
+multiTable()
